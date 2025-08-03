@@ -7,16 +7,17 @@ on:
         required: true
         type: string
       project-key:
-        required: false
+        required: true
         type: string
       sonar-org:
-        required: false
+        required: true
         type: string
       image-name:
         required: true
+        type: string
     secrets:
       SONAR_TOKEN:
-        required: false
+        required: true
       DOCKERHUB_USERNAME:
         required: true
       DOCKERHUB_TOKEN:
@@ -43,7 +44,6 @@ jobs:
         run: mvn clean verify package -DskipTests
 
       - name: Optional SonarCloud Scan
-        if: ${{ secrets.SONAR_TOKEN != '' }}
         run: mvn verify sonar:sonar \
           -Dsonar.projectKey=${{ inputs.project-key }} \
           -Dsonar.organization=${{ inputs.sonar-org }} \
