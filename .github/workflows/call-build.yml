@@ -1,0 +1,22 @@
+name: CI Pipeline (Using Reusable Workflow)
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'main'
+
+jobs:
+  call-reusable:
+    uses: ./.github/reusable-workflows/java-build.yml
+    with:
+      java-version: '17'
+      project-key: 'semtech'
+      sonar-org: 'sun-org'
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      DOCKERHUB_USERNAME: {{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    env:
+      IMAGE_NAME: sunidhidocker/semtech-poc
+
