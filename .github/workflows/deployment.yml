@@ -19,7 +19,7 @@ jobs:
       - name: Java Setup
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
       - name: Compile and Package with Maven
         run: mvn clean verify package -DskipTests
