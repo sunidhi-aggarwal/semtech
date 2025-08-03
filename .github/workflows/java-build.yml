@@ -43,12 +43,13 @@ jobs:
       - name: Compile and Package with Maven
         run: mvn clean verify package -DskipTests
 
-      - name: Optional SonarCloud Scan
-        run: mvn verify sonar:sonar \
-          -Dsonar.projectKey=${{ inputs.project-key }} \
-          -Dsonar.organization=${{ inputs.sonar-org }} \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: SonarCloud Scan
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=${{ inputs.project-key }} \
+            -Dsonar.organization=${{ inputs.sonar-org }} \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       - name: Docker Hub Login
         uses: docker/login-action@v3
