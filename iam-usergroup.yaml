@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  Create an IAM User and assign to a Group with EC2, S3, and EKS access.
+
+Resources:
+
+  ContractorsGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: Contractors
+      Policies:
+        - PolicyName: ContractorsAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:Describe*
+                  - ec2:StartInstances
+                  - ec2:StopInstances
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetObject
+                  - s3:PutObject
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - eks:ListClusters
+                  - eks:DescribeCluster
+                Resource: "*"
+
+  IamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: ContractorUser
+      Groups:
+        - !Ref ContractorsGroup
+
+  IamUserLoginProfile:
+    Type: AWS::IAM::LoginProfile
+    Properties:
+      UserName: !Ref IamUser
+      Password: Welcome@1234
+      PasswordResetRequired: true
+
+Outputs:
+  UserName:
+    Description: "The IAM User created"
+    Value: !Ref IamUser
+
+  GroupName:
+    Description: "The IAM Group created"
+    Value: !Ref ContractorsGroup
