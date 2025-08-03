@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/java-build.yml
     with:
       java-version: '17'
-      project-key: 'semtech'
+      project-key: 'sun-org-semtech'
       sonar-org: 'sun-org'
       image-name: 'sunidhidocker/semtech-poc'
     secrets:
