@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '11'
+          distribution: 'temurin'
       - name: Compile and Package with Maven
         run: mvn clean package -DskipTests
       - name: Docker Hub Login
