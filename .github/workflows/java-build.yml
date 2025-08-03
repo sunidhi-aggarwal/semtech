@@ -8,8 +8,10 @@ on:
         type: string
       project-key:
         required: false
+        type: string
       sonar-org:
         required: false
+        type: string
       image-name:
         required: true
     secrets:
