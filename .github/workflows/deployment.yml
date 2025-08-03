@@ -27,6 +27,7 @@ jobs:
         run: |
           mvn sonar:sonar \
             -Dsonar.projectKey=semtech \
+            -Dsonar.organization=sun_org \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
       - name: Docker Hub Login
