@@ -10,6 +10,8 @@ on:
         required: false
       sonar-org:
         required: false
+      image-name:
+        required: true
     secrets:
       SONAR_TOKEN:
         required: false
@@ -17,10 +19,9 @@ on:
         required: true
       DOCKERHUB_TOKEN:
         required: true
-    env:
-      IMAGE_NAME:
-        required: true
 
+env:
+  IMAGE_NAME: ${{ inputs.image-name }}
 
 jobs:
   build:
