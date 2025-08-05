@@ -10,10 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.paulcz</groupId>
-    <artifactId>hello</artifactId>
+    <artifactId>semtech</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hello</name>
-    <description>Hello World App</description>
+    <name>semtech</name>
+    <description>Hello World</description>
 
     <properties>
         <java.version>1.8</java.version>
