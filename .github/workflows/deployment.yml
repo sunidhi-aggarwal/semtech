@@ -27,12 +27,14 @@ jobs:
         run: mvn clean verify package -DskipTests
 
       - name: Sonar Scan
+        env:
+         SONAR_TOKEN: "a6fbfb3950558a8a1389895b0d5ef5045ca77c01"
         run: |
           mvn sonar:sonar \
             -Dsonar.projectKey=semtech \
             -Dsonar.organization=sun-org \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONARCLOUD_TOKEN }}
+            -Dsonar.login=$SONARCLOUD_TOKEN
 
       - name: Docker Hub Login
         uses: docker/login-action@v3
