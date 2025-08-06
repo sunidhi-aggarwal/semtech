@@ -38,13 +38,6 @@ Resources:
       Groups:
         - !Ref ContractorsGroup
 
-  IamUserLoginProfile:
-    Type: AWS::IAM::LoginProfile
-    Properties:
-      UserName: !Ref IamUser
-      Password: Welcome@1234
-      PasswordResetRequired: true
-
 Outputs:
   UserName:
     Description: "The IAM User created"
