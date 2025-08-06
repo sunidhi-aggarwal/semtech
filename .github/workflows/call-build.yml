@@ -11,6 +11,6 @@ jobs:
     uses: ./.github/workflows/common-build.yml
     with:
       branch-name: ${{ github.ref_name }}
-      sonar-token: ${{ secrets.SONAR_TOKEN }}
-      dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-      dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+      sonar_token: ${{ secrets.SONAR_TOKEN }}
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}

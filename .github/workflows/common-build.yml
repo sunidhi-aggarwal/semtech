@@ -6,13 +6,13 @@ on:
       branch-name:
         required: true
         type: string
-      sonar-token:
+      sonar_token:
         required: true
         type: string
-      dockerhub-username:
+      dockerhub_username:
         required: true
         type: string
-      dockerhub-token:
+      dockerhub_token:
         required: true
         type: string
 
@@ -48,7 +48,7 @@ jobs:
 
       - name: Sonar Scan
         env:
-          SONAR_TOKEN: ${{ inputs.sonar-token }}
+          SONAR_TOKEN: ${{ inputs.sonar_token }}
         run: |
           mvn sonar:sonar \
             -Dsonar.organization=sunidhi-aggarwal \
@@ -59,8 +59,8 @@ jobs:
       - name: Docker Hub Login
         uses: docker/login-action@v3
         with:
-          username: ${{ inputs.dockerhub-username }}
-          password: ${{ inputs.dockerhub-token }}
+          username: ${{ inputs.dockerhub_username }}
+          password: ${{ inputs.dockerhub_token }}
 
       - name: Build Docker Image
         run: |
