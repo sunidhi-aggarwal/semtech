@@ -34,7 +34,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile and Package with Maven
-        run: mvn clean verify package -DskipTests
+        run: mvn clean install package -DskipTests
 
       - name: Run CodeQL Analysis
         uses: github/codeql-action/analyze@v3
