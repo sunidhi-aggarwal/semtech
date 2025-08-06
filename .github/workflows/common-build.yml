@@ -6,15 +6,15 @@ on:
       branch-name:
         required: true
         type: string
-      sonar_token:
-        required: true
-        type: string
-      dockerhub_username:
-        required: true
-        type: string
-      dockerhub_token:
-        required: true
-        type: string
+      # sonar_token:
+      #   required: true
+      #   type: string
+      # dockerhub_username:
+      #   required: true
+      #   type: string
+      # dockerhub_token:
+      #   required: true
+      #   type: string
 
 jobs:
   build-test-docker:
