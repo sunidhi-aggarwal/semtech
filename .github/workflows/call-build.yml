@@ -7,7 +7,7 @@ on:
   merge_group:
 
 jobs:
-  call-common:
+  call-reusable:
     uses: ./.github/workflows/common-build.yml
     with:
       branch-name: ${{ github.ref_name }}
