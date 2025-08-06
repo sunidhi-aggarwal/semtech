@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: hello
-data:
-  application.yaml: |
-    message: "Hello World, this is from application.yaml"
-    test: nope
-    potato: bacon
