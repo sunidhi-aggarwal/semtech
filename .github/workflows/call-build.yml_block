@@ -1,16 +1,19 @@
-name: CI Pipeline (Using Reusable Workflow)
-
+name: Call Common Workflow
 on:
   push:
     branches:
       - 'feature/**'
       - 'main'
+  merge_group:
 
 jobs:
-  call-reusable:
-    uses: ./.github/workflows/java-build.yml
+  call-common:
+    uses: ./.github/workflows/common-build.yml
     with:
-      java-version: '17'
-      project-key: 'sun-org-semtech'
-      sonar-org: 'sun-org'
-      image-name: 'sunidhidocker/semtech-poc'
+      branch-name: ${{ github.ref_name }}
+      sonar-token: ${{ secrets.SONAR_TOKEN }}
+      dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

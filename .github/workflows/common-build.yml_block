@@ -1,0 +1,76 @@
+name: Common Workflow
+
+on:
+  workflow_call:
+    inputs:
+      branch-name:
+        required: true
+        type: string
+      sonar-token:
+        required: true
+        type: string
+      dockerhub-username:
+        required: true
+        type: string
+      dockerhub-token:
+        required: true
+        type: string
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+
+jobs:
+  build-test-docker:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java
+
+      - name: Java Setup
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile and Package with Maven
+        run: mvn clean install package -DskipTests
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: Sonar Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.organization=sunidhi-aggarwal \
+            -Dsonar.projectKey=sunidhi-aggarwal_semtech \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ inputs.sonar-token }}
+
+      - name: Docker Hub Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ inputs.dockerhub-username }}
+          password: ${{ inputs.dockerhub-token }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t sunidhidocker/semtech-poc:${{ inputs.branch-name }} .
+
+      - name: Push Docker Image to Docker Hub
+        run: |
+          docker push sunidhidocker/semtech-poc:${{ inputs.branch-name }}
