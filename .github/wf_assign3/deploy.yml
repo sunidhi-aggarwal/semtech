@@ -4,7 +4,6 @@ on:
     branches:
       - 'feature/**'
       - 'main'
-  merge_group:
 
 permissions:
   actions: read
@@ -13,6 +12,10 @@ permissions:
 
 jobs:
   call-reusable:
-    uses: ./.github/workflows/common-build.yml
+    uses: ./.github/workflows/common_wf.yml
     with:
       branch-name: ${{ github.ref_name }}
+    secrets:
+      sonar_token: ${{ secrets.SONAR_TOKEN }}
+      dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
