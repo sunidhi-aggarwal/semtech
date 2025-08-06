@@ -48,7 +48,7 @@ jobs:
 
       - name: Sonar Scan
         env:
-          SONAR_TOKEN: ${{ inputs.sonar_token }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: echo "Sonar token is ${{ secrets.SONAR_TOKEN }}"
         run: |
           mvn sonar:sonar \
@@ -60,8 +60,8 @@ jobs:
       - name: Docker Hub Login
         uses: docker/login-action@v3
         with:
-          username: ${{ inputs.dockerhub_username }}
-          password: ${{ inputs.dockerhub_token }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker Image
         run: |
