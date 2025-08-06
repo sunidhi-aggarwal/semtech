@@ -15,11 +15,6 @@ on:
       dockerhub-token:
         required: true
         type: string
-    secrets:
-      SONAR_TOKEN:
-        required: true
-      DOCKERHUB_TOKEN:
-        required: true
 
 jobs:
   build-test-docker:
@@ -53,13 +48,13 @@ jobs:
 
       - name: Sonar Scan
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ inputs.sonar-token }}
         run: |
           mvn sonar:sonar \
             -Dsonar.organization=sunidhi-aggarwal \
             -Dsonar.projectKey=sunidhi-aggarwal_semtech \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ inputs.sonar-token }}
+            -Dsonar.login=$SONAR_TOKEN
 
       - name: Docker Hub Login
         uses: docker/login-action@v3
